@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <title>datetimepickerテスト(xdan/datetimepicker)</title>
+  <link rel="stylesheet" href="./css/jquery.datetimepicker.css">
+  <script src="./javascript/jquery-1.11.1.min.js"></script>
+  <script src="./javascript/jquery.datetimepicker.js"></script>
+  <style>
+    pre {
+      border: 1px solid #999999;
+      padding: 10px;
+      width: 500px;
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <h1>xdan/datetimepickerのデモページ</h1>
+  <form>
+    <h2>デフォルト</h2>
+    <input id="datetimepicker_01" type="text" />
+    <pre><code>$('#datetimepicker_01').datetimepicker();</code></pre>
+
+    <h2>時間を5 分刻み</h2>
+    <input id="datetimepicker_02" type="text" />
+    <pre><code>$('#datetimepicker_02').datetimepicker({step: 5});</code></pre>
+
+    <h2>日本語化</h2>
+    <input id="datetimepicker_03" type="text" />
+    <pre><code>$('#datetimepicker_03').datetimepicker({lang: 'ja'});</code></pre>
+
+    <h2>月曜始まり</h2>
+    <input id="datetimepicker_04" type="text" />
+    <pre><code>$('#datetimepicker_04').datetimepicker({dayOfWeekStart: 1});</code></pre>
+  </form>
+  <script>
+    $(function(){
+      $('#datetimepicker_01').datetimepicker();
+      $('#datetimepicker_02').datetimepicker({step: 5});
+      $('#datetimepicker_03').datetimepicker({lang: 'ja'});
+      $('#datetimepicker_04').datetimepicker({dayOfWeekStart: 1});
+    });
+  </script>
+
+</body>
+</html>

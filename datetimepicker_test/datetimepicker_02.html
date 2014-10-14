@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <title>datetimepickerテスト(Eonasdan/bootstrap-datetimepicker)</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/eonasdan-bootstrap-datetimepicker.min.css">
+  <script src="./javascript/jquery-1.11.1.min.js"></script>
+  <script src="./javascript/moment-with-locales.js"></script>
+  <script src="./javascript/bootstrap.min.js"></script>
+  <script src="./javascript/eonasdan-bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Eonasdan/bootstrap-datetimepickerのデモページ</h1>
+    <h2>デフォルト</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker_01">
+            <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+          <pre><code>$('#datetimepicker_01').datetimepicker();</code></pre>
+        </div>
+      </div>
+    </div>
+    <h2>アイコンを使わずに利用</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type='text' class="form-control" id='datetimepicker_02'/>
+        <pre><code>$('#datetimepicker_02').datetimepicker();</code></pre>
+      </div>
+    </div>
+    <h2>日本語化（moment.jsの方で対応）</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker_03">
+            <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+          <pre><code>$('#datetimepicker_03').datetimepicker({language: 'ja'});</code></pre>
+        </div>
+      </div>
+    </div>
+    <h2>横に並べる</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker_04">
+            <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+          <pre><code>$('#datetimepicker_04').datetimepicker({sideBySide: true});</code></pre>
+        </div>
+      </div>
+    </div>
+    <h2>24時間フォーマット</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker_05">
+            <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+          <pre><code>$('#datetimepicker_05').datetimepicker({format: 'YYYY/MM/DD HH:mm'});</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function(){
+      $('#datetimepicker_01').datetimepicker();
+      $('#datetimepicker_02').datetimepicker();
+      $('#datetimepicker_03').datetimepicker({language: 'ja'});
+      $('#datetimepicker_04').datetimepicker({sideBySide: true});
+      $('#datetimepicker_05').datetimepicker({format: 'YYYY/MM/DD HH:mm'});
+    });
+  </script>
+
+</body>
+</html>

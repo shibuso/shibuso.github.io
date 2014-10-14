@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <title>datetimepickerテスト(smalot/bootstrap-datetimepicker)</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/smalot-bootstrap-datetimepicker.min.css">
+  <script src="./javascript/jquery-1.11.1.min.js"></script>
+  <script src="./javascript/bootstrap.min.js"></script>
+  <script src="./javascript/smalot-bootstrap-datetimepicker.min.js"></script>
+  <script src="./javascript/locales/bootstrap-datetimepicker.ja.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>smalot/bootstrap-datetimepickerのデモページ</h1>
+    <h2>デフォルト</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type='text' class="form-control" id='datetimepicker_01'/>
+        <pre><code>$('#datetimepicker_01').datetimepicker();</code></pre>
+      </div>
+    </div>
+    <h2>日本語化（jsファイルが用意されています）</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type='text' class="form-control" id='datetimepicker_02'/>
+        <pre><code>$('#datetimepicker_02').datetimepicker({language: 'ja'});</code></pre>
+      </div>
+    </div>
+    <h2>「今日」を選択するボタンを追加</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type='text' class="form-control" id='datetimepicker_03'/>
+        <pre><code>$('#datetimepicker_03').datetimepicker({todayBtn: true});</code></pre>
+      </div>
+    </div>
+    <h2>分単位の指定を省略</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type='text' class="form-control" id='datetimepicker_04'/>
+        <pre><code>$('#datetimepicker_04').datetimepicker({minView: 1});</code></pre>
+      </div>
+    </div>
+    <h2>時間単位の指定を省略</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type='text' class="form-control" id='datetimepicker_05'/>
+        <pre><code>$('#datetimepicker_05').datetimepicker({minView: 2});</code></pre>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function(){
+      $('#datetimepicker_01').datetimepicker();
+      $('#datetimepicker_02').datetimepicker({language: 'ja'});
+      $('#datetimepicker_03').datetimepicker({todayBtn: true});
+      $('#datetimepicker_04').datetimepicker({minView: 1});
+      $('#datetimepicker_05').datetimepicker({minView: 2});
+    });
+  </script>
+
+</body>
+</html>
