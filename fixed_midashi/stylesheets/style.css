@@ -1,0 +1,15 @@
+body {
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.table {
+  width: 300px;
+  height: 100px;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.table td {
+  border: solid 1px #000;
+}
