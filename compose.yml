@@ -1,0 +1,11 @@
+services:
+  jekyll:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    init: true
+    container_name: shibuso_net_jekyll
+    volumes:
+      - .:/app:cached
+    ports:
+      - "4000:4000"
