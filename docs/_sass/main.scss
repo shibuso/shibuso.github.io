@@ -1,0 +1,376 @@
+/* Bulma対応のカスタムスタイル */
+
+/* 基本設定 */
+body {
+  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ダークモード変数 */
+:root {
+  --bulma-primary: #3273dc;
+  --bulma-link: #3273dc;
+  --bulma-info: #3298dc;
+  --bulma-success: #48c774;
+  --bulma-warning: #ffdd57;
+  --bulma-danger: #f14668;
+  --bulma-light: #f5f5f5;
+  --bulma-dark: #363636;
+  --bulma-text: #4a4a4a;
+  --bulma-text-light: #888888;
+  --bulma-background: #ffffff;
+}
+
+/* ダークモード */
+[data-theme="dark"] {
+  --bulma-primary: #3273dc;
+  --bulma-link: #3273dc;
+  --bulma-info: #3298dc;
+  --bulma-success: #48c774;
+  --bulma-warning: #ffdd57;
+  --bulma-danger: #f14668;
+  --bulma-light: #2b2b2b;
+  --bulma-dark: #f5f5f5;
+  --bulma-text: #a9a9a9;
+  --bulma-text-light: #787878;
+  --bulma-text-strong: #d0d0d0;
+  --bulma-title-color: #d0d0d0;
+  --bulma-background: #1a1a1a;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--bulma-background);
+  color: var(--bulma-text);
+}
+
+[data-theme="dark"] .box {
+  background-color: #383838;
+  color: var(--bulma-text);
+}
+
+[data-theme="dark"] .card {
+  background-color: var(--bulma-light);
+  color: var(--bulma-text);
+}
+
+[data-theme="dark"] .card-content {
+  color: var(--bulma-text);
+}
+
+[data-theme="dark"] .footer {
+  background-color: var(--bulma-light);
+  color: var(--bulma-text);
+}
+
+[data-theme="dark"] .has-text-dark {
+  color: var(--bulma-text) !important;
+}
+
+[data-theme="dark"] .title a.has-text-dark {
+  color: #d0d0d0 !important;
+}
+
+[data-theme="dark"] .has-text-primary {
+  color: var(--bulma-primary) !important;
+}
+
+[data-theme="dark"] .has-background-light {
+  background-color: var(--bulma-light) !important;
+}
+
+[data-theme="dark"] .content {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #d0d0d0 !important;
+  }
+}
+
+/* サイトタイトルバー */
+.site-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  .site-title {
+    font-family: "Press Start 2P", system-ui;
+    font-size: 1.4rem;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--bulma-primary);
+    }
+  }
+}
+
+[data-theme="dark"] .site-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ダークモードトグル */
+.theme-toggle {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.theme-icon {
+  position: absolute;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sun-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+.moon-icon {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(180deg) scale(0);
+}
+
+/* ダークモード時のアイコン切り替え */
+[data-theme="dark"] .sun-icon {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-180deg) scale(0);
+}
+
+[data-theme="dark"] .moon-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+.hero h1.title {
+  font-family: "Press Start 2P", system-ui;
+}
+
+/* 記事タイトル */
+.box .post-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+/* 記事カード内の罫線 */
+.box hr {
+  background-color: #7a7a7a;
+  height: 1px;
+}
+
+/* 記事本文のテーブル */
+.post-body table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    border: 1px solid #dbdbdb !important;
+    padding: 0.5em 0.75em;
+  }
+
+  th {
+    background-color: #f5f5f5;
+  }
+}
+
+[data-theme="dark"] .post-body table {
+
+  th,
+  td {
+    border-color: #555 !important;
+  }
+
+  th {
+    background-color: #333;
+  }
+}
+
+/* 記事本文・抜粋内の見出しサイズ調整 */
+.post-body {
+
+  /* is-4相当 */
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  /* is-5相当 */
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* フローティングボタン */
+.floating-buttons {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 100;
+}
+
+.floating-btn {
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+#back-to-top {
+  font-size: 1.2rem;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+[data-theme="dark"] .floating-btn {
+  background-color: var(--bulma-light);
+  color: var(--bulma-text);
+  border-color: transparent;
+}
+
+/* Prism.js シンタックスハイライト */
+
+/* コードブロック共通 */
+pre[class*="language-"],
+code[class*="language-"] {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9em;
+}
+
+/* ツールバー（コピーボタン）のスタイル */
+div.code-toolbar>.toolbar {
+  opacity: 1;
+
+  .toolbar-item button {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 0.2em 0.6em;
+    font-size: 0.75em;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #c8c8c8;
+    }
+  }
+}
+
+/* ダークモード: Prism Tomorrow テーマ */
+[data-theme="dark"] {
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #ccc;
+    background: none;
+    text-shadow: none;
+  }
+
+  :not(pre)>code[class*="language-"],
+  pre[class*="language-"] {
+    background: #2d2d2d;
+  }
+
+  .token.comment,
+  .token.block-comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #999;
+  }
+
+  .token.punctuation {
+    color: #ccc;
+  }
+
+  .token.tag,
+  .token.attr-name,
+  .token.namespace,
+  .token.deleted {
+    color: #e2777a;
+  }
+
+  .token.function-name {
+    color: #6196cc;
+  }
+
+  .token.boolean,
+  .token.number,
+  .token.function {
+    color: #f08d49;
+  }
+
+  .token.property,
+  .token.class-name,
+  .token.constant,
+  .token.symbol {
+    color: #f8c555;
+  }
+
+  .token.selector,
+  .token.important,
+  .token.atrule,
+  .token.keyword,
+  .token.builtin {
+    color: #cc99cd;
+  }
+
+  .token.string,
+  .token.char,
+  .token.attr-value,
+  .token.regex,
+  .token.variable {
+    color: #7ec699;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url {
+    color: #67cdcc;
+    background: none;
+  }
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+
+  .token.italic {
+    font-style: italic;
+  }
+
+  .token.inserted {
+    color: #a5d6a7;
+  }
+
+  /* ダークモード時のコピーボタン */
+  div.code-toolbar>.toolbar .toolbar-item button {
+    background: #444;
+    color: #ccc;
+
+    &:hover {
+      background: #555;
+    }
+  }
+}

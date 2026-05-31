@@ -1,27 +1,45 @@
 ---
 layout: default
 ---
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        {{ page.date | date: date_format }}
-      </time>
-      {%- if page.author -%}
-        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
-      {%- endif -%}</p>
-  </header>
+<div class="columns">
+  <div class="column is-8">
+    <article class="content box">
+      <div class="mb-5">
+        <h1 class="title post-title mb-0">{{ page.title | escape }}</h1>
+        <hr class="mt-2 mb-1">
+        <div class="level is-mobile">
+          <div class="level-left">
+            <div class="level-item">
+              <small>{{ page.date | date: "%Y年%m月%d日" }}</small>
+            </div>
+            {%- if page.tags.size > 0 -%}
+            <div class="level-item">
+              <div class="tags mb-0">
+                {%- for tag in page.tags -%}
+                <a href="{{ '/posts/' | relative_url }}?tag={{ tag | uri_escape }}" class="tag is-primary">{{ tag }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+            {%- endif -%}
+          </div>
+          <div class="level-right">
+            <!-- ソーシャルリンク用 -->
+          </div>
+        </div>
+      </div>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    {{ content }}
+      <div class="content post-body">
+        {{ content }}
+      </div>
+
+      {%- if site.disqus.shortname -%}
+      {%- include disqus_comments.html -%}
+      {%- endif -%}
+    </article>
   </div>
 
-  {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
-  {%- endif -%}
-
-  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
-</article>
+  <aside class="column is-4">
+    {%- include sidebar.html -%}
+  </aside>
+</div>

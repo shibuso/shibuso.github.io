@@ -1,0 +1,28 @@
+{
+  "name": "shibuso.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shibuso/shibuso.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shibuso/shibuso.github.io/issues"
+  },
+  "homepage": "https://github.com/shibuso/shibuso.github.io#readme",
+  "devDependencies": {
+    "textlint": "^15.7.1",
+    "textlint-rule-ja-space-between-half-and-full-width": "^2.4.2"
+  }
+}

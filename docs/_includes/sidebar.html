@@ -1,0 +1,25 @@
+<div class="mb-6">
+  <div class="card">
+    <div class="card-content has-text-centered">
+      <figure class="image is-64x64 is-inline-block mb-4">
+        <img class="is-rounded" src="{{ '/assets/images/shibuso.png' | relative_url }}" alt="Profile">
+      </figure>
+      <p>
+        shibuso（しぶそ）です。
+        フリーランスとしてWeb業界を放浪してます。
+        Railsを主に使っているバックエンドがメインのエンジニアです。
+        お仕事の依頼は<a href="https://www.noctech.biz">こちらのサイト</a>からお願いします。
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="mb-6">
+  <h4 class="title is-5 has-text-primary">タグ</h4>
+  <div class="tags">
+    {%- assign all_tags = site.tags | sort -%}
+    {%- for tag in all_tags -%}
+    <a href="{{ '/posts/' | relative_url }}?tag={{ tag[0] | uri_escape }}" class="tag is-medium">{{ tag[0] }}</a>
+    {%- endfor -%}
+  </div>
+</div>

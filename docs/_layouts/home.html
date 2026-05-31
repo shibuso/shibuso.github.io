@@ -2,33 +2,98 @@
 layout: default
 ---
 
-<div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
-
-  {{ content }}
-
-  {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
+<div class="columns">
+  <div class="column is-8">
+    <div class="content">
+      {%- if paginator.posts.size > 0 -%}
+      {%- for post in paginator.posts -%}
+      <article class="box mb-5">
+        <h2 class="title post-title mb-0">
+          <a href="{{ post.url | relative_url }}" class="has-text-dark">{{ post.title | escape }}</a>
+        </h2>
+        <hr class="mt-2 mb-1">
+        <div class="level is-mobile mb-3">
+          <div class="level-left">
+            <div class="level-item">
+              <small>{{ post.date | date: "%Y年%m月%d日" }}</small>
+            </div>
+            {%- if post.tags.size > 0 -%}
+            <div class="level-item">
+              <div class="tags mb-0">
+                {%- for tag in post.tags -%}
+                <a href="{{ '/posts/' | relative_url }}?tag={{ tag | uri_escape }}" class="tag is-primary">{{ tag }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+            {%- endif -%}
+          </div>
+          <div class="level-right">
+            <!-- ソーシャルリンク用 -->
+          </div>
+        </div>
+        <div class="content post-body">
+          {%- if post.excerpt -%}
           {{ post.excerpt }}
-        {%- endif -%}
-      </li>
+          {%- endif -%}
+        </div>
+      </article>
       {%- endfor -%}
-    </ul>
+      {%- endif -%}
+    </div>
 
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
-  {%- endif -%}
+    {%- if paginator.total_pages > 1 -%}
+    {%- assign current_page = paginator.page -%}
+    {%- assign total_pages = paginator.total_pages -%}
+    {%- assign total_pages_minus_1 = total_pages | minus: 1 -%}
+    {%- assign win_start = current_page | minus: 2 -%}
+    {%- if win_start < 1 -%}{%- assign win_start=1 -%}{%- endif -%} {%- assign win_end=win_start | plus: 4 -%} {%- if
+      win_end> total_pages -%}{%- assign win_end = total_pages -%}{%- endif -%}
+      {%- assign win_start = win_end | minus: 4 -%}
+      {%- if win_start < 1 -%}{%- assign win_start=1 -%}{%- endif -%} <nav class="pagination is-centered mt-6"
+        role="navigation" aria-label="pagination">
+        {%- if paginator.previous_page -%}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-previous">前のページ</a>
+        {%- else -%}
+        <a class="pagination-previous" disabled>前のページ</a>
+        {%- endif -%}
 
+        {%- if paginator.next_page -%}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-next">次のページ</a>
+        {%- else -%}
+        <a class="pagination-next" disabled>次のページ</a>
+        {%- endif -%}
+
+        <ul class="pagination-list">
+          {%- if win_start > 1 -%}
+          <li><a href="{{ " /" | relative_url }}" class="pagination-link">1</a></li>
+          {%- if win_start > 2 -%}
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+          {%- endif -%}
+          {%- endif -%}
+
+          {%- for p in (win_start..win_end) -%}
+          {%- if p == current_page -%}
+          <li><a class="pagination-link is-current" aria-current="page">{{ p }}</a></li>
+          {%- elsif p == 1 -%}
+          <li><a href="{{ " /" | relative_url }}" class="pagination-link">1</a></li>
+          {%- else -%}
+          <li><a href="{{ site.paginate_path | replace: ':num', p | relative_url }}" class="pagination-link">{{ p }}</a>
+          </li>
+          {%- endif -%}
+          {%- endfor -%}
+
+          {%- if win_end < total_pages -%} {%- if win_end < total_pages_minus_1 -%} <li><span
+              class="pagination-ellipsis">&hellip;</span></li>
+            {%- endif -%}
+            <li><a href="{{ site.paginate_path | replace: ':num', total_pages | relative_url }}"
+                class="pagination-link">{{ total_pages }}</a></li>
+            {%- endif -%}
+        </ul>
+        </nav>
+        {%- endif -%}
+  </div>
+
+  <aside class="column is-4">
+    {%- include sidebar.html -%}
+  </aside>
 </div>
