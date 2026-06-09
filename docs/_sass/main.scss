@@ -374,3 +374,65 @@ div.code-toolbar>.toolbar {
     }
   }
 }
+
+/* アーカイブリスト */
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+
+  .archive-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    color: var(--bulma-text, #4a4a4a);
+    text-decoration: none;
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: #f0f0f0;
+      color: #3273dc;
+    }
+
+    &.is-active {
+      background-color: #3273dc;
+      color: #fff;
+
+      .archive-count {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+
+  .archive-count {
+    font-size: 0.8rem;
+    color: #888;
+    margin-left: 0.5rem;
+  }
+}
+
+[data-theme="dark"] {
+  .archive-link {
+    color: #ccc;
+
+    &:hover {
+      background-color: #333;
+      color: #6aafff;
+    }
+
+    &.is-active {
+      background-color: #3273dc;
+      color: #fff;
+    }
+  }
+
+  .archive-count {
+    color: #888;
+  }
+}

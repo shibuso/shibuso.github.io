@@ -23,3 +23,18 @@
     {%- endfor -%}
   </div>
 </div>
+
+<div class="mb-6">
+  <h4 class="title is-5 has-text-primary">アーカイブ</h4>
+  <ul class="archive-list">
+    {%- assign posts_by_yearmonth = site.posts | group_by_exp: "post", "post.date | date: '%Y年%-m月'" -%}
+    {%- for group in posts_by_yearmonth -%}
+    {%- assign yearmonth_param = group.items[0].date | date: '%Y-%m' -%}
+    <li>
+      <a href="{{ '/posts/' | relative_url }}?archive={{ yearmonth_param }}" class="archive-link">
+        {{ group.name }}<span class="archive-count">({{ group.items | size }})</span>
+      </a>
+    </li>
+    {%- endfor -%}
+  </ul>
+</div>

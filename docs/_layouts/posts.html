@@ -33,7 +33,7 @@ layout: default
     <div id="posts-container">
       {%- assign posts_per_page = 10 -%}
       {%- for post in site.posts -%}
-      <article class="box mb-5 post-item" data-tags="{{ post.tags | join: ',' }}">
+      <article class="box mb-5 post-item" data-tags="{{ post.tags | join: ',' }}" data-yearmonth="{{ post.date | date: '%Y-%m' }}">
         <h2 class="title post-title mb-0">
           <a href="{{ post.url | relative_url }}" class="has-text-dark">{{ post.title | escape }}</a>
         </h2>
@@ -84,20 +84,18 @@ layout: default
   const postsPerPage = 10;
   let currentPage = 1;
   let currentTag = 'all';
+  let currentArchive = 'all';
   let filteredPosts = [];
 
   function getAllPosts() {
     return Array.from(document.querySelectorAll('.post-item'));
   }
 
-  function filterPostsByTag(tag) {
-    const allPosts = getAllPosts();
-    if (tag === 'all') {
-      return allPosts;
-    }
-    return allPosts.filter(post => {
-      const tags = post.getAttribute('data-tags').split(',');
-      return tags.includes(tag);
+  function filterPosts(tag, archive) {
+    return getAllPosts().filter(post => {
+      const tagMatch = tag === 'all' || post.getAttribute('data-tags').split(',').includes(tag);
+      const archiveMatch = archive === 'all' || post.getAttribute('data-yearmonth') === archive;
+      return tagMatch && archiveMatch;
     });
   }
 
@@ -164,10 +162,17 @@ layout: default
     }
   }
 
+  function buildUrl(tag, archive) {
+    const params = new URLSearchParams();
+    if (tag !== 'all') params.set('tag', tag);
+    if (archive !== 'all') params.set('archive', archive);
+    const qs = params.toString();
+    return qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+  }
+
   // タグフィルター機能
   document.querySelectorAll('.tag-filter-btn').forEach(button => {
     button.addEventListener('click', function () {
-      // アクティブクラスの切り替え
       document.querySelectorAll('.tag-filter-btn').forEach(btn => {
         btn.classList.remove('is-primary', 'active');
         btn.classList.add('is-light');
@@ -175,17 +180,13 @@ layout: default
       this.classList.remove('is-light');
       this.classList.add('is-primary', 'active');
 
-      // フィルター適用
       currentTag = this.getAttribute('data-tag');
-      filteredPosts = filterPostsByTag(currentTag);
+      currentArchive = 'all';
+      updateArchiveLinkState('all');
+      filteredPosts = filterPosts(currentTag, currentArchive);
       currentPage = 1;
       displayPosts(currentPage);
-
-      // URLを更新してブラウザ履歴に追加
-      const url = currentTag === 'all'
-        ? window.location.pathname
-        : `${window.location.pathname}?tag=${encodeURIComponent(currentTag)}`;
-      history.pushState({ tag: currentTag }, '', url);
+      history.pushState({ tag: currentTag, archive: currentArchive }, '', buildUrl(currentTag, currentArchive));
     });
   });
 
@@ -207,26 +208,56 @@ layout: default
     }
   });
 
-  // ブラウザの戻る/進むボタン対応
-  window.addEventListener('popstate', (event) => {
-    const tag = event.state?.tag ?? new URLSearchParams(window.location.search).get('tag') ?? 'all';
+  function updateArchiveLinkState(archive) {
+    document.querySelectorAll('.archive-link').forEach(link => {
+      const linkArchive = new URLSearchParams(new URL(link.href).search).get('archive') ?? 'all';
+      link.classList.toggle('is-active', linkArchive === archive);
+    });
+  }
+
+  // サイドバーのアーカイブリンクをクリックした際の処理
+  document.addEventListener('click', function (e) {
+    const archiveLink = e.target.closest('.archive-link');
+    if (!archiveLink) return;
+    e.preventDefault();
+    const params = new URLSearchParams(new URL(archiveLink.href).search);
+    currentArchive = params.get('archive') ?? 'all';
+    currentTag = 'all';
     document.querySelectorAll('.tag-filter-btn').forEach(btn => {
       btn.classList.remove('is-primary', 'active');
       btn.classList.add('is-light');
     });
-    const targetBtn = document.querySelector(`.tag-filter-btn[data-tag="${tag}"]`);
-    if (targetBtn) {
-      targetBtn.classList.remove('is-light');
-      targetBtn.classList.add('is-primary', 'active');
-    }
-    currentTag = tag;
-    filteredPosts = filterPostsByTag(currentTag);
+    const allBtn = document.querySelector('.tag-filter-btn[data-tag="all"]');
+    if (allBtn) { allBtn.classList.remove('is-light'); allBtn.classList.add('is-primary', 'active'); }
+    updateArchiveLinkState(currentArchive);
+    filteredPosts = filterPosts(currentTag, currentArchive);
+    currentPage = 1;
+    displayPosts(currentPage);
+    history.pushState({ tag: currentTag, archive: currentArchive }, '', buildUrl(currentTag, currentArchive));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ブラウザの戻る/進むボタン対応
+  window.addEventListener('popstate', (event) => {
+    const params = new URLSearchParams(window.location.search);
+    currentTag = event.state?.tag ?? params.get('tag') ?? 'all';
+    currentArchive = event.state?.archive ?? params.get('archive') ?? 'all';
+    document.querySelectorAll('.tag-filter-btn').forEach(btn => {
+      btn.classList.remove('is-primary', 'active');
+      btn.classList.add('is-light');
+    });
+    const targetBtn = document.querySelector(`.tag-filter-btn[data-tag="${currentTag}"]`);
+    if (targetBtn) { targetBtn.classList.remove('is-light'); targetBtn.classList.add('is-primary', 'active'); }
+    updateArchiveLinkState(currentArchive);
+    filteredPosts = filterPosts(currentTag, currentArchive);
     currentPage = 1;
     displayPosts(currentPage);
   });
 
-  // 初期化: URLクエリパラメータ ?tag= があればそのタグで絞り込む
-  const urlTag = new URLSearchParams(window.location.search).get('tag');
+  // 初期化: URLクエリパラメータで絞り込む
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlTag = urlParams.get('tag');
+  const urlArchive = urlParams.get('archive');
   if (urlTag) {
     const targetBtn = document.querySelector(`.tag-filter-btn[data-tag="${urlTag}"]`);
     if (targetBtn) {
@@ -239,6 +270,10 @@ layout: default
       currentTag = urlTag;
     }
   }
-  filteredPosts = filterPostsByTag(currentTag);
+  if (urlArchive) {
+    currentArchive = urlArchive;
+    updateArchiveLinkState(currentArchive);
+  }
+  filteredPosts = filterPosts(currentTag, currentArchive);
   displayPosts(1);
 </script>
